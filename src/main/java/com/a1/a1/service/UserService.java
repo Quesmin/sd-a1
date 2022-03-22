@@ -91,11 +91,11 @@ public class UserService {
         if(filter.getMaxPrice() != null && filter.getMaxPrice() < 0){
             throw new Exception("Negative price");
         }
-        if(filter.getMaxPrice() != null && filter.getMaxPrice() != null && filter.getMaxPrice() < filter.getMinPrice()){
+        if(filter.getMaxPrice() != null && filter.getMinPrice() != null && filter.getMaxPrice() < filter.getMinPrice()){
             throw new Exception("Invalid price range!");
         }
 
-        if(filter.getStartDate() != null && filter.getStartDate() != null && filter.getStartDate().getTime() > filter.getEndDate().getTime()){
+        if(filter.getStartDate() != null && filter.getEndDate() != null && filter.getStartDate().getTime() > filter.getEndDate().getTime()){
             throw new Exception("Invalid date range!");
         }
 

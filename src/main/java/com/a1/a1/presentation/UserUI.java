@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.sql.Date;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -216,7 +217,9 @@ public class UserUI implements Initializable {
     }
 
     public void filterPackages() {
-        errorMessageLabel.setVisible(false);
+        if(UserUI.agency == null){
+            errorMessageLabel.setVisible(false);
+        }
 
         try{
 
@@ -229,7 +232,10 @@ public class UserUI implements Initializable {
 
             updatePackageTable(PackageTable, userController.filterPackages(filter));
         }catch (Exception e){
-            errorMessageLabel.setVisible(true);
+            Arrays.stream(e.getStackTrace()).forEach(err -> System.out.println(err));
+            if(UserUI.agency == null){
+                errorMessageLabel.setVisible(true);
+            }
         }
     }
 
@@ -247,7 +253,9 @@ public class UserUI implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        errorMessageLabel.setVisible(false);
+        if(UserUI.agency == null){
+            errorMessageLabel.setVisible(false);
+        }
         if (UserUI.agency == null) {
             List<PackModel> packs = userController.viewAllAvailablePackages();
             updatePackageTable(PackageTable, packs);
