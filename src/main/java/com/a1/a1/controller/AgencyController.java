@@ -10,6 +10,7 @@ import com.a1.a1.service.DestinationService;
 import com.a1.a1.service.PackService;
 
 import java.sql.Date;
+import java.util.Arrays;
 import java.util.List;
 
 public class AgencyController {
@@ -26,14 +27,33 @@ public class AgencyController {
             return destinationService.createDestination(name);
         } catch (Exception e){
             System.out.println(e.getStackTrace());
-            return null;
         }
+        return null;
+    }
+
+    public DestinationModel updateDestination(Integer destId, String name){
+        try{
+            return destinationService.changeDestination(destId, name);
+        } catch (Exception e){
+            System.out.println(e.getStackTrace());
+        }
+        return null;
+    }
+
+    public DestinationModel deleteDestinatioin(Integer destId){
+        try{
+            return destinationService.removeDestination(destId);
+        } catch (Exception e){
+            System.out.println(e.getStackTrace());
+        }
+        return null;
     }
 
     public PackModel addPack(PackDTO pack){
         try{
             return packService.createPack(pack);
         } catch (Exception e){
+            Arrays.stream(e.getStackTrace()).forEach(elem -> System.out.println(elem));
             System.out.println(e.getStackTrace());
         }
         return null;
@@ -68,8 +88,13 @@ public class AgencyController {
     public static void main(String[] args) throws Exception {
         AgencyController agencyController = new AgencyController();
 
-        DestinationModel destination = new DestinationRepository().findDestination(10);
-        AgencyModel agency = new AgencyRepository().findAgency(2);
-        List<PackModel> result = agencyController.viewPackages(agency);
+        DestinationModel destination = new DestinationRepository().findDestination(3);
+        AgencyModel agency = new AgencyRepository().findAgency(1);
+
+        PackDTO packDTO = new PackDTO("asd", 123, Date.valueOf("2021-03-15"), Date.valueOf("2021-03-17"), "asd", 10, destination, agency);
+
+        PackModel result = agencyController.addPack(packDTO);
+        System.out.println(result);
+//        List<PackModel> result = agencyController.viewPackages(agency);
     }
 }

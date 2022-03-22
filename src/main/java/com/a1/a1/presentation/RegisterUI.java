@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 
-public class NewAccountUI {
+public class RegisterUI {
 
     UserController userController = new UserController();
     @FXML
@@ -19,9 +19,6 @@ public class NewAccountUI {
 
     @FXML
     private TextField passwordTextField;
-
-    @FXML
-    private CheckBox userTypeCheckBox;
 
     @FXML
     void createAccount(ActionEvent event) throws Exception {

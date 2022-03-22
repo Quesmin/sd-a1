@@ -9,7 +9,7 @@ import java.util.List;
 
 public class PackService {
 
-    static final Integer MAX_SLOTS = 30;
+    static final Integer MAX_SLOTS = 99999;
     static final Integer MAX_PRICE = 99999;
     PackRepository packRepository;
 

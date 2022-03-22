@@ -16,11 +16,13 @@ import java.util.ResourceBundle;
 
 public class BookingUI implements Initializable {
 
-    @FXML
-    private TableView bookingsTable;
+
 
     public static UserModel user;
     private static UserController userController = new UserController();
+
+    @FXML
+    private TableView bookingsTable;
 
     public void updateTable(TableView table, List<PackModel> newPackagesList) {
         table.getColumns().clear();

@@ -44,6 +44,10 @@ public class UserService {
         return userRepository.findUserByEmailAndPassword(user);
     }
 
+    public UserModel getUser(Integer userId) throws Exception {
+        return userRepository.findUser(userId);
+    }
+
     public AgencyModel getAssociatedAgency(UserDTO user) throws Exception {
         if(user.getAgency() != null){
             return agencyRepository.findAgency(user.getAgency().getId());

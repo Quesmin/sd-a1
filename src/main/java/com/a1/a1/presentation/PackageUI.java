@@ -23,42 +23,46 @@ public class PackageUI implements Initializable {
     public static PackModel pack;
     private final AgencyController agencyController = new AgencyController();
     private final UserController userController = new UserController();
+    private final UserUI userUI = new UserUI();
     @FXML
     private ComboBox<DestinationModel> destinationDropdown;
 
     @FXML
-    private TextField availableField;
-
-    @FXML
-    private TextArea detailsField;
+    private TextArea detailsTextField;
 
     @FXML
     private DatePicker endDate;
 
     @FXML
-    private TextField nameField;
+    private TextField maxSlotsTextField;
 
     @FXML
-    private TextField priceField;
+    private TextField nameTextField;
+
+    @FXML
+    private TextField priceTextField;
 
     @FXML
     private DatePicker startDate;
 
     @FXML
     void addPackage(ActionEvent event) {
-        PackDTO packDTO = new PackDTO(nameField.getText(),
-                Integer.parseInt(priceField.getText()),
-                Date.valueOf(startDate.getValue()),
-                Date.valueOf(endDate.getValue()),
-                detailsField.getText(),
-                Integer.parseInt(availableField.getText()),
+        PackDTO packDTO = new PackDTO(nameTextField.getText(),
+                Integer.parseInt(priceTextField.getText()),
+                Date.valueOf(startDate.getValue().toString()),
+                Date.valueOf(endDate.getValue().toString()),
+                detailsTextField.getText(),
+                Integer.parseInt(maxSlotsTextField.getText()),
                 destinationDropdown.getValue(),
                 agency
         );
+
+
         if (pack == null)
             agencyController.addPack(packDTO);
         else
             agencyController.changePack(pack.getId(), packDTO);
+
         ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
     }
 
@@ -66,12 +70,13 @@ public class PackageUI implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         destinationDropdown.getItems().addAll(userController.getAllDestinations());
         if(pack != null){
-            nameField.setText(pack.getName());
-            priceField.setText(String.valueOf(pack.getPrice()));
-            startDate.setValue(pack.getStartDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-            endDate.setValue(pack.getEndDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-            detailsField.setText(pack.getExtraDetails());
+            nameTextField.setText(pack.getName());
+            priceTextField.setText(String.valueOf(pack.getPrice()));
+            startDate.setValue(pack.getStartDate().toLocalDate());
+            endDate.setValue(pack.getEndDate().toLocalDate());
+            detailsTextField.setText(pack.getExtraDetails());
             destinationDropdown.getSelectionModel().select(pack.getDestinationByDestinationId());
+            maxSlotsTextField.setText(String.valueOf(pack.getMaxSlots()));
         }
     }
 }

@@ -106,13 +106,13 @@ public class BookingRepository {
         BookingRepository bookingRepository = new BookingRepository();
         UserRepository userRepository = new UserRepository();
         PackRepository packRepository = new PackRepository();
-        UserModel user = userRepository.findUser(6);
-        PackModel pack = packRepository.findPack(8);
+        UserModel user = userRepository.findUser(8);
+        PackModel pack = packRepository.findPack(20);
         BookingDTO bookingDTO = new BookingDTO(user, pack);
-//        BookingModel book = bookingRepository.insertBooking(bookingDTO);
+        BookingModel book = bookingRepository.insertBooking(bookingDTO);
 //        BookingModel book = bookingRepository.findBooking(3);
 //        UserModel pack = userRepository.updateUser(1, user);
-        BookingModel book = bookingRepository.removeBooking(6);
+//        BookingModel book = bookingRepository.removeBooking(6);
 //        book = bookingRepository.removeBooking(6);
         System.out.println(book.toString());
     }

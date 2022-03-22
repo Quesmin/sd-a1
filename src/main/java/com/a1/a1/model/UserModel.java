@@ -21,7 +21,7 @@ public class UserModel {
     @Column(name = "id")
     private Integer id;
     @OneToMany(mappedBy = "userByUserId")
-    @LazyCollection(LazyCollectionOption.FALSE)
+//    @LazyCollection(LazyCollectionOption.FALSE)
     private List<BookingModel> bookingsById;
     @ManyToOne
     @JoinColumn(name = "agency_id", referencedColumnName = "id")
