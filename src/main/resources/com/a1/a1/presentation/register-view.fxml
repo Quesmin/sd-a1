@@ -6,12 +6,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="445.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.a1.a1.presentation.RegisterUI">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.a1.a1.presentation.RegisterUI">
    <children>
-      <TextField fx:id="emailTextField" layoutX="129.0" layoutY="134.0" promptText="email" />
-      <Button layoutX="156.0" layoutY="293.0" mnemonicParsing="false" onAction="#createAccount" text="Create account" />
-      <PasswordField fx:id="passwordTextField" layoutX="129.0" layoutY="187.0" promptText="password" />
-      <PasswordField fx:id="checkPasswordTextField" layoutX="129.0" layoutY="236.0" promptText="check password" />
-      <Label fx:id="errorMessageLabel" layoutX="129.0" layoutY="346.0" prefHeight="18.0" prefWidth="128.0" text="Invalid inputs!" textFill="#ef0000" />
+      <TextField fx:id="emailTextField" layoutX="85.0" layoutY="113.0" promptText="email" />
+      <Button layoutX="111.0" layoutY="271.0" mnemonicParsing="false" onAction="#createAccount" text="Create account" />
+      <PasswordField fx:id="passwordTextField" layoutX="85.0" layoutY="164.0" promptText="password" />
+      <PasswordField fx:id="checkPasswordTextField" layoutX="85.0" layoutY="216.0" promptText="check password" />
+      <Label fx:id="errorMessageLabel" layoutX="120.0" layoutY="319.0" prefHeight="18.0" prefWidth="78.0" text="Invalid inputs!" textFill="#ef0000" />
+      <Label layoutX="136.0" layoutY="67.0" prefHeight="18.0" prefWidth="47.0" text="Register" />
    </children>
 </AnchorPane>

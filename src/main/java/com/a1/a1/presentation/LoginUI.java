@@ -39,9 +39,9 @@ public class LoginUI implements Initializable {
             UserUI.user = user;
 
             if(UserUI.agency == null){
-                HelloApplication.setRoot("user-view", 1100, 700);
+                HelloApplication.setRoot("user-view", 1150, 520 );
             } else {
-                HelloApplication.setRoot("agency-view", 1100, 700);
+                HelloApplication.setRoot("agency-view", 986, 657);
             }
 
         } catch (Exception e){
@@ -53,7 +53,7 @@ public class LoginUI implements Initializable {
 
     @FXML
     void switchToNewAccountScreen(ActionEvent event) throws IOException {
-        HelloApplication.setRoot("register-view", 500, 500);
+        HelloApplication.setRoot("register-view", 320, 380);
     }
 
     @Override

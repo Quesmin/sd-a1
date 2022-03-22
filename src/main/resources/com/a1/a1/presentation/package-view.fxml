@@ -10,22 +10,21 @@
 
 <AnchorPane prefHeight="601.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.a1.a1.presentation.PackageUI">
    <children>
-      <TextField fx:id="nameTextField" layoutX="215.0" layoutY="65.0" />
-      <TextField fx:id="priceTextField" layoutX="216.0" layoutY="133.0" />
-      <Label layoutX="100.0" layoutY="69.0" text="Name" />
-      <Label layoutX="104.0" layoutY="137.0" text="Price" />
-      <DatePicker fx:id="startDate" layoutX="203.0" layoutY="195.0" />
-      <DatePicker fx:id="endDate" layoutX="203.0" layoutY="251.0" />
-      <TextArea fx:id="detailsTextField" layoutX="202.0" layoutY="293.0" prefHeight="119.0" prefWidth="200.0" />
-      <Label layoutX="78.0" layoutY="199.0" text="starting date" />
-      <Label layoutX="80.0" layoutY="255.0" text="ending date" />
-      <Label layoutX="98.0" layoutY="345.0" text="details" />
-      <ComboBox fx:id="destinationDropdown" layoutX="225.0" layoutY="449.0" prefWidth="150.0" />
-      <Label layoutX="84.0" layoutY="453.0" text="destination" />
-      <Button layoutX="242.0" layoutY="534.0" mnemonicParsing="false" onAction="#addPackage" text="Add package" />
-      <TextField layoutX="217.0" layoutY="495.0" />
-      <TextField fx:id="maxSlotsTextField" layoutX="216.0" layoutY="495.0" />
-      <Label layoutX="67.0" layoutY="499.0" text="max  slots" />
-      <Label fx:id="errorMessageLabel" layoutX="178.0" layoutY="568.0" prefHeight="18.0" prefWidth="128.0" text="Invalid inputs!" textFill="#ef0000" />
+      <TextField fx:id="nameTextField" layoutX="210.0" layoutY="56.0" />
+      <TextField fx:id="priceTextField" layoutX="210.0" layoutY="104.0" />
+      <Label layoutX="162.0" layoutY="60.0" text="Name" />
+      <Label layoutX="164.0" layoutY="108.0" text="Price" />
+      <DatePicker fx:id="startDate" layoutX="204.0" layoutY="147.0" />
+      <DatePicker fx:id="endDate" layoutX="203.0" layoutY="195.0" />
+      <TextArea fx:id="detailsTextField" layoutX="200.0" layoutY="241.0" prefHeight="119.0" prefWidth="200.0" />
+      <Label layoutX="128.0" layoutY="151.0" text="starting date" />
+      <Label layoutX="111.0" layoutY="199.0" text="ending date" />
+      <Label layoutX="144.0" layoutY="292.0" text="details" />
+      <ComboBox fx:id="destinationDropdown" layoutX="200.0" layoutY="384.0" prefWidth="150.0" />
+      <Label layoutX="114.0" layoutY="388.0" text="destination" />
+      <Button layoutX="232.0" layoutY="479.0" mnemonicParsing="false" onAction="#addPackage" text="Add package" />
+      <TextField fx:id="maxSlotsTextField" layoutX="200.0" layoutY="432.0" />
+      <Label layoutX="118.0" layoutY="436.0" text="max  slots" />
+      <Label fx:id="errorMessageLabel" layoutX="237.0" layoutY="536.0" prefHeight="18.0" prefWidth="75.0" text="Invalid inputs!" textFill="#ef0000" />
    </children>
 </AnchorPane>

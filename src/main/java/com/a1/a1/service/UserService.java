@@ -56,7 +56,6 @@ public class UserService {
         }
 
         UserModel foundUser = userRepository.findUserByEmail(user);
-
         if(password.equals("") || !BCrypt.checkpw(password, foundUser.getPassword())){
             throw new Exception("Invalid password!");
         }

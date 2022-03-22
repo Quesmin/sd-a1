@@ -40,7 +40,7 @@ public class RegisterUI implements Initializable {
 
             UserModel newUser = userController.registerUser(new UserDTO(emailTextField.getText(), passwordTextField.getText()));
             if (newUser != null) {
-                HelloApplication.setRoot("login-view", 500, 500);
+                HelloApplication.setRoot("login-view", 320, 380);
             }
         } catch (Exception e) {
             errorMessageLabel.setVisible(true);

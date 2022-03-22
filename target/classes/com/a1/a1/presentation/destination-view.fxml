@@ -7,9 +7,9 @@
 
 <AnchorPane prefHeight="226.0" prefWidth="449.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.a1.a1.presentation.DestinationUI">
    <children>
-      <TextField fx:id="nameTextField" layoutX="130.0" layoutY="74.0" promptText="nameTextField" />
-      <Label layoutX="158.0" layoutY="33.0" text="Add a destination" />
-      <Button layoutX="194.0" layoutY="138.0" mnemonicParsing="false" onAction="#addDestination" text="Add" />
-      <Label fx:id="errorMessageLabel" layoutX="130.0" layoutY="184.0" prefHeight="18.0" prefWidth="128.0" text="Invalid inputs!" textFill="#ef0000" />
+      <TextField fx:id="nameTextField" layoutX="138.0" layoutY="71.0" promptText="nameTextField" />
+      <Label layoutX="182.0" layoutY="33.0" text="Destination" />
+      <Button layoutX="193.0" layoutY="113.0" mnemonicParsing="false" onAction="#addDestination" text="Add" />
+      <Label fx:id="errorMessageLabel" layoutX="173.0" layoutY="167.0" prefHeight="18.0" prefWidth="78.0" text="Invalid input!" textFill="#ef0000" />
    </children>
 </AnchorPane>
