@@ -22,22 +22,14 @@ public class AgencyController {
         packService = new PackService();
     }
 
-    public DestinationModel addVacationDestination(String name){
-        try{
+    public DestinationModel addVacationDestination(String name) throws Exception {
             return destinationService.createDestination(name);
-        } catch (Exception e){
-            System.out.println(e.getStackTrace());
-        }
-        return null;
+
     }
 
-    public DestinationModel updateDestination(Integer destId, String name){
-        try{
+    public DestinationModel updateDestination(Integer destId, String name) throws Exception {
             return destinationService.changeDestination(destId, name);
-        } catch (Exception e){
-            System.out.println(e.getStackTrace());
-        }
-        return null;
+
     }
 
     public DestinationModel deleteDestinatioin(Integer destId){
@@ -49,23 +41,12 @@ public class AgencyController {
         return null;
     }
 
-    public PackModel addPack(PackDTO pack){
-        try{
+    public PackModel addPack(PackDTO pack) throws Exception {
             return packService.createPack(pack);
-        } catch (Exception e){
-            Arrays.stream(e.getStackTrace()).forEach(elem -> System.out.println(elem));
-            System.out.println(e.getStackTrace());
-        }
-        return null;
     }
 
-    public PackModel changePack(Integer packId, PackDTO packDTO){
-        try{
+    public PackModel changePack(Integer packId, PackDTO packDTO) throws Exception {
             return packService.updatePack(packId, packDTO);
-        } catch (Exception e){
-            System.out.println(e.getStackTrace());
-        }
-        return null;
     }
     public PackModel removePack(Integer packId){
         try{

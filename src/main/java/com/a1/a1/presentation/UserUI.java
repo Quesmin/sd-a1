@@ -9,6 +9,8 @@ import com.a1.a1.model.AgencyModel;
 import com.a1.a1.model.DestinationModel;
 import com.a1.a1.model.PackModel;
 import com.a1.a1.model.UserModel;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,21 +31,23 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class UserUI implements Initializable {
+
     static UserController userController = new UserController();
     AgencyController agencyController = new AgencyController();
     public static UserModel user;
     public static AgencyModel agency;
+
+    @FXML
+    private Label errorMessageLabel;
+
     @FXML
     private ComboBox DestinationDropdown;
 
-
     @FXML
     private TableView PackageTable;
-    private TableView PackageTableStatic;
 
     @FXML
     private TableView DestinationTable;
-    private TableView DestinationTableStatic;
 
     @FXML
     private DatePicker endDate;
@@ -62,8 +66,8 @@ public class UserUI implements Initializable {
         table.getColumns().clear();
         table.getItems().clear();
         for (Field field : PackModel.class.getDeclaredFields()) {
-//            if (field.getName().equals("tourists"))
-//                continue;
+            if (field.getName().contains("By"))
+                continue;
             field.setAccessible(true);
             TableColumn t = new TableColumn(field.getName());
             t.setCellValueFactory(new PropertyValueFactory<>(field.getName()));
@@ -71,6 +75,13 @@ public class UserUI implements Initializable {
             t.setMinWidth(100);
             t.setStyle("-fx-alignment: CENTER;");
         }
+
+        if(UserUI.agency != null){
+            TableColumn status = new TableColumn("status");
+            status.setCellValueFactory(new PropertyValueFactory<>("status"));
+            table.getColumns().add(status);
+        }
+
         ContextMenu cm = new ContextMenu();
         if (UserUI.agency != null) {
             MenuItem menuItem1 = new MenuItem("Delete");
@@ -88,7 +99,7 @@ public class UserUI implements Initializable {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 Scene scene = null;
                 try {
-                    scene = new Scene(HelloApplication.loadFXML("add-package"));
+                    scene = new Scene(HelloApplication.loadFXML("package-view"));
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -104,7 +115,7 @@ public class UserUI implements Initializable {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 Scene scene = null;
                 try {
-                    scene = new Scene(HelloApplication.loadFXML("add-package"));
+                    scene = new Scene(HelloApplication.loadFXML("package-view"));
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -130,18 +141,22 @@ public class UserUI implements Initializable {
                 cm.hide();
             }
         });
-        table.getItems().addAll(newPackageList
-                .stream()
-                .filter(e -> e.getBookingsById().size() < e.getMaxSlots())
-                .toList());
+        if(UserUI.agency != null){
+            table.getItems().addAll(newPackageList);
+        } else {
+            table.getItems().addAll(newPackageList
+                    .stream()
+                    .filter(e -> e.getBookingsById().size() < e.getMaxSlots())
+                    .toList());
+        }
     }
 
     public void updateDestinationTable(TableView table, List<DestinationModel> newDestiantionList){
         table.getColumns().clear();
         table.getItems().clear();
         for (Field field : DestinationModel.class.getDeclaredFields()) {
-//            if (field.getName().equals("tourists"))
-//                continue;
+            if (field.getName().contains("By"))
+                continue;
             field.setAccessible(true);
             TableColumn t = new TableColumn(field.getName());
             t.setCellValueFactory(new PropertyValueFactory<>(field.getName()));
@@ -163,7 +178,7 @@ public class UserUI implements Initializable {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 Scene scene = null;
                 try {
-                    scene = new Scene(HelloApplication.loadFXML("destination"));
+                    scene = new Scene(HelloApplication.loadFXML("destination-view"));
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -178,7 +193,7 @@ public class UserUI implements Initializable {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 Scene scene = null;
                 try {
-                    scene = new Scene(HelloApplication.loadFXML("destination"));
+                    scene = new Scene(HelloApplication.loadFXML("destination-view"));
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -201,14 +216,21 @@ public class UserUI implements Initializable {
     }
 
     public void filterPackages() {
-        PackFilterDTO filter = new PackFilterDTO();
-        filter.setStartDate(startDate.getValue() != null ? Date.valueOf(startDate.getValue()) : null);
-        filter.setEndDate(endDate.getValue() != null ? Date.valueOf(endDate.getValue()) : null);
-        filter.setMinPrice(minPrice.getText().length() > 0 ? Integer.parseInt(minPrice.getText()) : null);
-        filter.setMaxPrice(maxPrice.getText().length() > 0 ? Integer.parseInt(maxPrice.getText()) : null);
-        filter.setDestination((DestinationModel) DestinationDropdown.getSelectionModel().getSelectedItem());
+        errorMessageLabel.setVisible(false);
 
-        updatePackageTable(PackageTable, userController.filterPackages(filter));
+        try{
+
+            PackFilterDTO filter = new PackFilterDTO();
+            filter.setStartDate(startDate.getValue() != null ? Date.valueOf(startDate.getValue()) : null);
+            filter.setEndDate(endDate.getValue() != null ? Date.valueOf(endDate.getValue()) : null);
+            filter.setMinPrice(minPrice.getText().length() > 0 ? Integer.parseInt(minPrice.getText()) : null);
+            filter.setMaxPrice(maxPrice.getText().length() > 0 ? Integer.parseInt(maxPrice.getText()) : null);
+            filter.setDestination((DestinationModel) DestinationDropdown.getSelectionModel().getSelectedItem());
+
+            updatePackageTable(PackageTable, userController.filterPackages(filter));
+        }catch (Exception e){
+            errorMessageLabel.setVisible(true);
+        }
     }
 
     @FXML
@@ -225,11 +247,9 @@ public class UserUI implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println(UserUI.user);
+        errorMessageLabel.setVisible(false);
         if (UserUI.agency == null) {
             List<PackModel> packs = userController.viewAllAvailablePackages();
-//        agencyController.
-//        System.out.println(paks);
             updatePackageTable(PackageTable, packs);
 
             minPrice.textProperty().addListener((observable, oldValue, newValue) -> filterPackages());
@@ -243,8 +263,6 @@ public class UserUI implements Initializable {
         } else {
             List<PackModel> packs = agencyController.viewPackages(UserUI.agency);
             List<DestinationModel> destinations = userController.getAllDestinations();
-//        agencyController.
-//        System.out.println(paks);
             updatePackageTable(PackageTable, packs);
             updateDestinationTable(DestinationTable, destinations);
         }
@@ -253,16 +271,10 @@ public class UserUI implements Initializable {
     public void refreshTables(){
         if (UserUI.agency == null) {
             List<PackModel> packs = userController.viewAllAvailablePackages();
-//        agencyController.
-//        System.out.println(paks);
-
             updatePackageTable(PackageTable, packs);
-
         } else {
             List<PackModel> packs = agencyController.viewPackages(UserUI.agency);
             List<DestinationModel> destinations = userController.getAllDestinations();
-//        agencyController.
-//        System.out.println(paks);
             updatePackageTable(PackageTable, packs);
             updateDestinationTable(DestinationTable, destinations);
         }

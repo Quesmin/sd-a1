@@ -54,7 +54,7 @@ public class UserRepository {
         }
     }
 
-    public UserModel findUserByEmailAndPassword(UserDTO user) throws Exception {
+    public UserModel findUserByEmail(UserDTO user) throws Exception {
         try {
             EntityManager em = entityManagerFactory.createEntityManager();
             CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -62,8 +62,7 @@ public class UserRepository {
 
             Root<UserModel> userQuery = cq.from(UserModel.class);
             Predicate emailPredicate = cb.equal(userQuery.get("email"), user.getEmail());
-            Predicate passwordPredicate = cb.equal(userQuery.get("password"), user.getPassword());
-            cq.where(emailPredicate, passwordPredicate);
+            cq.where(emailPredicate);
 
             TypedQuery<UserModel> query = em.createQuery(cq);
             return query.getSingleResult();

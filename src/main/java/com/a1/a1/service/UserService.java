@@ -5,8 +5,10 @@ import com.a1.a1.dto.PackFilterDTO;
 import com.a1.a1.dto.UserDTO;
 import com.a1.a1.model.*;
 import com.a1.a1.repository.*;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class UserService {
 
@@ -37,11 +39,29 @@ public class UserService {
             throw new Exception("Invalid password");
         }
 
+        String salt = BCrypt.gensalt();
+        String hashedPassword = BCrypt.hashpw(password, salt);
+        newUser.setPassword(hashedPassword);
+
         return userRepository.insertUser(newUser);
     }
 
     public UserModel authenticate(UserDTO user) throws Exception {
-        return userRepository.findUserByEmailAndPassword(user);
+        String regexPattern = "^(.+)@(\\S+)$";
+        String email = user.getEmail();
+        String password = user.getPassword();
+
+        if(email.equals("") || !Pattern.compile(regexPattern).matcher(email).matches()){
+            throw new Exception("Invalid email!");
+        }
+
+        UserModel foundUser = userRepository.findUserByEmail(user);
+
+        if(password.equals("") || !BCrypt.checkpw(password, foundUser.getPassword())){
+            throw new Exception("Invalid password!");
+        }
+
+        return foundUser;
     }
 
     public UserModel getUser(Integer userId) throws Exception {
@@ -65,6 +85,20 @@ public class UserService {
     }
 
     public List<PackModel> getFilteredPackages(PackFilterDTO filter) throws Exception {
+        if(filter.getMinPrice() != null && filter.getMinPrice() < 0){
+            throw new Exception("Negative price");
+        }
+        if(filter.getMaxPrice() != null && filter.getMaxPrice() < 0){
+            throw new Exception("Negative price");
+        }
+        if(filter.getMaxPrice() != null && filter.getMaxPrice() != null && filter.getMaxPrice() < filter.getMinPrice()){
+            throw new Exception("Invalid price range!");
+        }
+
+        if(filter.getStartDate() != null && filter.getStartDate() != null && filter.getStartDate().getTime() > filter.getEndDate().getTime()){
+            throw new Exception("Invalid date range!");
+        }
+
         return packRepository.filterPackages(filter);
     }
 

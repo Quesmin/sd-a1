@@ -19,22 +19,12 @@ public class UserController {
         userService = new UserService();
     }
 
-    public UserModel registerUser(UserDTO newUser){
-        try{
+    public UserModel registerUser(UserDTO newUser) throws Exception {
             return userService.createUSer(newUser);
-        } catch (Exception e){
-            System.out.println(e.getStackTrace());
-        }
-        return null;
     }
 
-    public UserModel loginUser(UserDTO user){
-        try{
+    public UserModel loginUser(UserDTO user) throws Exception {
             return userService.authenticate(user);
-        } catch (Exception e){
-            System.out.println(e.getStackTrace());
-        }
-        return null;
     }
 
     public UserModel getUser(Integer userId){
@@ -55,13 +45,8 @@ public class UserController {
         return null;
     }
 
-    public List<PackModel> filterPackages(PackFilterDTO filter){
-        try{
+    public List<PackModel> filterPackages(PackFilterDTO filter) throws Exception {
             return userService.getFilteredPackages(filter);
-        } catch (Exception e){
-            System.out.println(e.getStackTrace());
-        }
-        return null;
     }
 
     public List<DestinationModel> getAllDestinations(){

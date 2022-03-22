@@ -28,6 +28,9 @@ public class PackageUI implements Initializable {
     private ComboBox<DestinationModel> destinationDropdown;
 
     @FXML
+    private Label errorMessageLabel;
+
+    @FXML
     private TextArea detailsTextField;
 
     @FXML
@@ -47,29 +50,33 @@ public class PackageUI implements Initializable {
 
     @FXML
     void addPackage(ActionEvent event) {
-        PackDTO packDTO = new PackDTO(nameTextField.getText(),
-                Integer.parseInt(priceTextField.getText()),
-                Date.valueOf(startDate.getValue().toString()),
-                Date.valueOf(endDate.getValue().toString()),
-                detailsTextField.getText(),
-                Integer.parseInt(maxSlotsTextField.getText()),
-                destinationDropdown.getValue(),
-                agency
-        );
+        errorMessageLabel.setVisible(false);
 
-
-        if (pack == null)
-            agencyController.addPack(packDTO);
-        else
-            agencyController.changePack(pack.getId(), packDTO);
-
-        ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
+        try{
+            PackDTO packDTO = new PackDTO(nameTextField.getText(),
+                    Integer.parseInt(priceTextField.getText()),
+                    Date.valueOf(startDate.getValue().toString()),
+                    Date.valueOf(endDate.getValue().toString()),
+                    detailsTextField.getText(),
+                    Integer.parseInt(maxSlotsTextField.getText()),
+                    destinationDropdown.getValue(),
+                    agency
+            );
+            if (pack == null)
+                agencyController.addPack(packDTO);
+            else
+                agencyController.changePack(pack.getId(), packDTO);
+            ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
+        }catch (Exception e){
+            errorMessageLabel.setVisible(true);
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        errorMessageLabel.setVisible(false);
         destinationDropdown.getItems().addAll(userController.getAllDestinations());
-        if(pack != null){
+        if (pack != null){
             nameTextField.setText(pack.getName());
             priceTextField.setText(String.valueOf(pack.getPrice()));
             startDate.setValue(pack.getStartDate().toLocalDate());

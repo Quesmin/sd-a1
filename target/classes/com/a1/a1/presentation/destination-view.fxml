@@ -10,5 +10,6 @@
       <TextField fx:id="nameTextField" layoutX="130.0" layoutY="74.0" promptText="nameTextField" />
       <Label layoutX="158.0" layoutY="33.0" text="Add a destination" />
       <Button layoutX="194.0" layoutY="138.0" mnemonicParsing="false" onAction="#addDestination" text="Add" />
+      <Label fx:id="errorMessageLabel" layoutX="130.0" layoutY="184.0" prefHeight="18.0" prefWidth="128.0" text="Invalid inputs!" textFill="#ef0000" />
    </children>
 </AnchorPane>

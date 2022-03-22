@@ -28,8 +28,8 @@ public class BookingUI implements Initializable {
         table.getColumns().clear();
         table.getItems().clear();
         for (Field field : PackModel.class.getDeclaredFields()) {
-//            if (field.getName().equals("tourists"))
-//                continue;
+            if (field.getName().contains("By"))
+                continue;
             field.setAccessible(true);
             TableColumn t = new TableColumn(field.getName());
             t.setCellValueFactory(new PropertyValueFactory<>(field.getName()));
@@ -37,7 +37,7 @@ public class BookingUI implements Initializable {
             t.setMinWidth(100);
             t.setStyle("-fx-alignment: CENTER;");
         }
-        table.getItems().addAll(newPackagesList.stream().filter(e -> e.getBookingsById().size() < e.getMaxSlots()).toList());
+        table.getItems().addAll(newPackagesList);
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

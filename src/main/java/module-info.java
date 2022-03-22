@@ -1,6 +1,7 @@
 module com.a1.a1 {
 
     requires java.persistence;
+    requires jbcrypt;
 
     requires javafx.controls;
     requires javafx.fxml;

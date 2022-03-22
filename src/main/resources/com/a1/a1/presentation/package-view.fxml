@@ -26,5 +26,6 @@
       <TextField layoutX="217.0" layoutY="495.0" />
       <TextField fx:id="maxSlotsTextField" layoutX="216.0" layoutY="495.0" />
       <Label layoutX="67.0" layoutY="499.0" text="max  slots" />
+      <Label fx:id="errorMessageLabel" layoutX="178.0" layoutY="568.0" prefHeight="18.0" prefWidth="128.0" text="Invalid inputs!" textFill="#ef0000" />
    </children>
 </AnchorPane>

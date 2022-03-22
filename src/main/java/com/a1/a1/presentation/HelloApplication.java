@@ -18,20 +18,9 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         window = stage;
-        scene = new Scene(loadFXML("hello-view"));
+        scene = new Scene(loadFXML("login-view"));
         stage.setScene(scene);
         stage.show();
-//        AgencyDAO user = new AgencyDAO("abc22@gmail.com", "aa");
-//        EntityManager em = entityManagerFactory.createEntityManager();
-//        em.getTransaction().begin();
-//        em.persist(user);
-//        em.getTransaction().commit();
-//        em.close();
-//        AgencyUI.agency = em.find(AgencyDAO.class, 12L);
-//        Stage stage1 = new Stage();
-//        Scene scene1 = new Scene(loadFXML("agency"));
-//        stage1.setScene(scene1);
-//        stage1.show();
     }
 
     public static void setRoot(String fxml, Integer v, Integer v1) throws IOException {

@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -21,18 +22,26 @@ public class DestinationUI implements Initializable {
     private TextField nameTextField;
 
     @FXML
+    private Label errorMessageLabel;
+
+    @FXML
     void addDestination(ActionEvent event) {
-
-        if (destination == null)
-            agencyController.addVacationDestination(nameTextField.getText());
-        else
-            agencyController.updateDestination(destination.getId(), nameTextField.getText());
-
-        ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
+        errorMessageLabel.setVisible(false);
+        try{
+            if (destination == null){
+                agencyController.addVacationDestination(nameTextField.getText());
+            } else {
+                agencyController.updateDestination(destination.getId(), nameTextField.getText());
+            }
+            ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
+        } catch (Exception e){
+            errorMessageLabel.setVisible(true);
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        errorMessageLabel.setVisible(false);
         if(destination != null){
             nameTextField.setText(destination.getName());
         }

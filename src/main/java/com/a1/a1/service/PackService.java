@@ -44,6 +44,29 @@ public class PackService {
     }
 
     public PackModel updatePack(Integer packId, PackDTO packDTO) throws Exception {
+        if (packDTO.getName().equals("") || packDTO.getName() == null){
+            throw new Exception("Invalid name");
+        }
+
+        if (packDTO.getDestination() == null){
+            throw new Exception("Invalid destination");
+        }
+        if (packDTO.getAgency() == null){
+            throw new Exception("Invalid agency");
+        }
+
+        if (packDTO.getStartDate() == null || packDTO.getEndDate() == null || packDTO.getStartDate().getTime() > packDTO.getEndDate().getTime()){
+            throw new Exception("Invalid date interval");
+        }
+
+        if (packDTO.getMaxSlots() < 0 || packDTO.getMaxSlots() > MAX_SLOTS || packDTO.getMaxSlots() == null){
+            throw new Exception("Invalid max slots input");
+        }
+
+        if (packDTO.getPrice() < 0 || packDTO.getPrice() > MAX_PRICE || packDTO.getPrice() == null){
+            throw new Exception("Invalid price input");
+        }
+
         return packRepository.updatePack(packId, packDTO);
     }
     public PackModel deletePack(Integer packId) throws Exception {

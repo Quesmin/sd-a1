@@ -56,6 +56,18 @@ public class PackModel {
     public PackModel() {
     }
 
+    public String getStatus(){
+        if(bookingsById.size() == maxSlots){
+            return "BOOKED";
+        }
+
+        if(bookingsById.isEmpty()){
+            return "NOT_BOOKED";
+        }
+
+        return "IN_PROGRESS";
+    }
+
     public Integer getId() {
         return id;
     }

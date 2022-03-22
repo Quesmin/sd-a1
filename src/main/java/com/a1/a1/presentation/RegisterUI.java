@@ -5,10 +5,15 @@ import com.a1.a1.dto.UserDTO;
 import com.a1.a1.model.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class RegisterUI {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class RegisterUI implements Initializable {
 
     UserController userController = new UserController();
     @FXML
@@ -21,16 +26,30 @@ public class RegisterUI {
     private TextField passwordTextField;
 
     @FXML
-    void createAccount(ActionEvent event) throws Exception {
+    private Label errorMessageLabel;
 
-        if(!passwordTextField.getText().equals(checkPasswordTextField.getText())){
-            return;
-        }
+    @FXML
+    void createAccount(ActionEvent event) {
 
-        UserModel newUser = userController.registerUser(new UserDTO(emailTextField.getText(), passwordTextField.getText()));
-        if (newUser != null) {
-            HelloApplication.setRoot("hello-view", 500, 500);
+        try {
+
+            if (!passwordTextField.getText().equals(checkPasswordTextField.getText())) {
+                errorMessageLabel.setVisible(true);
+                return;
+            }
+
+            UserModel newUser = userController.registerUser(new UserDTO(emailTextField.getText(), passwordTextField.getText()));
+            if (newUser != null) {
+                HelloApplication.setRoot("login-view", 500, 500);
+            }
+        } catch (Exception e) {
+            errorMessageLabel.setVisible(true);
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        errorMessageLabel.setVisible(false);
     }
 
 }
